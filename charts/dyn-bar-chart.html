@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>D3</title>
+      <script src="../d3.min.js"></script>
+  </head>
+  <body>
+        <div></div>
+        <script>
+           var data = [10,30,20,60,55,40,15]
+           var height_val = 40
+           var width_scale = 10
+           var svg_height = height_val * data.length
+           var svg_width = Math.max(...data) * width_scale
+           var width_val = (d) => (d * width_scale)
+           var txt_scale = 25
+           var mainDiv = d3.select("div").append("svg").attr("height",svg_height).attr("width",svg_width)
+           var groupDiv = mainDiv.selectAll("g").data(data).enter().append("g")
+           groupDiv.append("rect").attr("y",(d,i)=>i*height_val).attr("width",width_val).attr("height",height_val).attr("fill","red").attr("stroke","white")
+           groupDiv.append("text").attr("x",(d,i) => width_val(d)-txt_scale).attr("y",(d,i)=>(i*height_val+txt_scale)).text((d)=>d).attr("fill","white")
+        </script>
+  </body>
+</html>
+</DOCTYPE>

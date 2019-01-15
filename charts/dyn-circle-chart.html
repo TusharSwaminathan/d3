@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>D3</title>
+      <script src="../d3.min.js"></script>
+  </head>
+  <body>
+        <div></div>
+        <script>
+           var data = [10,30,20,60,55,40,15]
+           var height_val = Math.max(...data)
+           var radius_scale = 2
+           var sum_data = (newVal,currentVal) => newVal+currentVal
+           var total_radius = data.reduce(sum_data)
+           var svg_height = height_val * radius_scale
+           var svg_width = total_radius * radius_scale
+           var txt_scale = 7
+           var width_val = (d,i) => {
+               var tot_sum = data[i]
+               data.map((x,xi) => { 
+                if (i>xi)
+                tot_sum=tot_sum+(x*radius_scale)
+               })
+               return tot_sum
+           }
+           var mainDiv = d3.select("div").append("svg").attr("height",svg_height).attr("width",svg_width)
+           var groupDiv = mainDiv.selectAll("g").data(data).enter().append("g")
+           groupDiv.append("circle").attr("cx",width_val).attr("cy",height_val).attr("r",(d)=>(d)).attr("fill","red")
+           groupDiv.append("text").attr("x",(d,i) => width_val(d,i)-txt_scale).attr("y",height_val+txt_scale).text((d)=>d).attr("fill","white")
+        </script>
+  </body>
+</html>
+</DOCTYPE>
